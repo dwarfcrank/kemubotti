@@ -1,4 +1,4 @@
-package kemubotti;
+package com.dwarfcrank.kemubotti;
 
 /**
  *
