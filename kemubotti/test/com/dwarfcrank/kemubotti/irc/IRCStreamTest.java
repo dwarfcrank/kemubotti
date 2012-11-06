@@ -8,13 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 /**
- *
+ * Test fixture for testing the IRCStream class.
  * @author dwarfcrank
  */
 public class IRCStreamTest {
@@ -118,7 +116,7 @@ public class IRCStreamTest {
 
     /**
      * Sets up the test fixture by generating a set of strings that will be used
-     * to test the readString() method with fake input/output stream classes.
+     * to test the readLine() method with fake input/output stream classes.
      * @throws IOException
      */
     @Before
@@ -151,7 +149,7 @@ public class IRCStreamTest {
     @Test
     public void testRead() throws IOException {
         for(String s : testLines) {
-            String str = stream.readString();
+            String str = stream.readLine();
             assertEquals(s, str);
         }
     }
@@ -163,12 +161,12 @@ public class IRCStreamTest {
     @Test
     public void testWrite() throws IOException {
         for(String s : testLines) {
-            stream.writeString(s);
+            stream.writeLine(s);
             
             // Read back the result and compare
             String str = outStream.getString();
             
-            // IRCStream.writeString appends \r\n to the end of the string, so
+            // IRCStream.writeLine appends \r\n to the end of the string, so
             // remember to account for that.
             assertEquals(s + "\r\n", str);
             

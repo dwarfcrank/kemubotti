@@ -47,7 +47,7 @@ public class IRCStream {
      * @param string The string to write.
      * @throws IOException
      */
-    public void writeString(String string) throws IOException {
+    public void writeLine(String string) throws IOException {
         string += "\r\n";
 
         outputStreamWriter.write(string);
@@ -61,34 +61,36 @@ public class IRCStream {
      * @return The line read from the stream.
      * @throws IOException
      */
-    public String readString() throws IOException {
+    public String readLine() throws IOException {
         StringBuilder builder = new StringBuilder();
 
         builder.ensureCapacity(BUFFER_SIZE);
 
-        char character = (char) inputStreamReader.read();
+        int character = inputStreamReader.read();
 
-        while (true) {
+        // Read characters until \r\n or end of stream is encountered.
+        while (character != -1) {
             // IRC messages are separated by \r\n, so check for those first
             if (character == '\r') {
                 // Read one character ahead
-                char nextChar = (char) inputStreamReader.read();
+                int nextChar = inputStreamReader.read();
 
-                if (nextChar == '\n') {
+                if (nextChar == '\n' || nextChar == -1) {
                     // \r\n found, break the loop
+                    // Also break in case of end of stream and skip adding \r
+                    // to the string.
                     break;
                 }
 
-                // If they weren't, write the characters to the string and
-                // continue.
-                builder.append(character);
-                builder.append(nextChar);
+                // No \r\n, write the characters to the string and continue.
+                builder.append((char)character);
+                builder.append((char)nextChar);
 
                 continue;
             }
 
-            builder.append(character);
-            character = (char) inputStreamReader.read();
+            builder.append((char)character);
+            character = inputStreamReader.read();
         }
 
         return builder.toString();
