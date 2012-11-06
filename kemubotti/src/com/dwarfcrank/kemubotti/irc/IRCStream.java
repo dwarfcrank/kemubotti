@@ -1,9 +1,6 @@
 package com.dwarfcrank.kemubotti.irc;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.Socket;
+import java.io.*;
 
 /**
  *
@@ -11,8 +8,8 @@ import java.net.Socket;
  */
 public class IRCStream {
 
-    private OutputStreamWriter outputStream;
-    private InputStreamReader inputStream;
+    private OutputStreamWriter outputStreamWriter;
+    private InputStreamReader inputStreamReader;
     private String hostName;
     private static final String CHARSET = "UTF-8";
     // The IRC protocol specifies that the length of a message may not exceed
@@ -22,6 +19,7 @@ public class IRCStream {
 
     /**
      * Gets the hostname this stream is currently connected to.
+     *
      * @return The hostname of the connection
      */
     public String getHostName() {
@@ -29,63 +27,68 @@ public class IRCStream {
     }
 
     /**
-     * Creates a new stream that can be written to or read from.
-     * @param socket The socket that will be used to read and write messages.
+     * Creates a new IRC stream that can be written to or read from.
+     *
+     * @param inputStream The stream to read from
+     * @param outputStream The stream to write to
+     * @param hostName The hostname that this stream is connected to
      * @throws IOException
      */
-    public IRCStream(Socket socket) throws IOException {
-        outputStream = new OutputStreamWriter(socket.getOutputStream(), CHARSET);
-        inputStream = new InputStreamReader(socket.getInputStream(), CHARSET);
+    public IRCStream(InputStream inputStream, OutputStream outputStream, String hostName) throws IOException {
+        outputStreamWriter = new OutputStreamWriter(outputStream, CHARSET);
+        inputStreamReader = new InputStreamReader(inputStream, CHARSET);
 
-        hostName = socket.getInetAddress().getHostName();
+        this.hostName = hostName;
     }
 
     /**
      * Writes a string to the server stream.
+     *
      * @param string The string to write.
      * @throws IOException
      */
     public void writeString(String string) throws IOException {
         string += "\r\n";
-        
-        outputStream.write(string);
-        outputStream.flush();
+
+        outputStreamWriter.write(string);
+        outputStreamWriter.flush();
     }
 
     /**
-     * Reads a single line from the server stream. The terminating \r\n characters
-     * are stripped from the string.
+     * Reads a single line from the server stream. The terminating \r\n
+     * characters are stripped from the string.
+     *
      * @return The line read from the stream.
      * @throws IOException
      */
-    public String readString() throws IOException {        
+    public String readString() throws IOException {
         StringBuilder builder = new StringBuilder();
 
         builder.ensureCapacity(BUFFER_SIZE);
 
-        char character = (char)inputStream.read();
+        char character = (char) inputStreamReader.read();
 
         while (true) {
             // IRC messages are separated by \r\n, so check for those first
             if (character == '\r') {
                 // Read one character ahead
-                char nextChar = (char)inputStream.read();
+                char nextChar = (char) inputStreamReader.read();
 
                 if (nextChar == '\n') {
                     // \r\n found, break the loop
                     break;
                 }
-                
+
                 // If they weren't, write the characters to the string and
                 // continue.
                 builder.append(character);
                 builder.append(nextChar);
-                
+
                 continue;
             }
 
             builder.append(character);
-            character = (char)inputStream.read();
+            character = (char) inputStreamReader.read();
         }
 
         return builder.toString();
