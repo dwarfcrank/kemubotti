@@ -47,7 +47,7 @@ public class IRCStream {
      * @param string The string to write.
      * @throws IOException
      */
-    public void writeString(String string) throws IOException {
+    public void writeLine(String string) throws IOException {
         string += "\r\n";
 
         outputStreamWriter.write(string);
@@ -61,7 +61,7 @@ public class IRCStream {
      * @return The line read from the stream.
      * @throws IOException
      */
-    public String readString() throws IOException {
+    public String readLine() throws IOException {
         StringBuilder builder = new StringBuilder();
 
         builder.ensureCapacity(BUFFER_SIZE);
