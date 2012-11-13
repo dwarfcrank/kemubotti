@@ -39,9 +39,10 @@ public class IRCMessage {
         this.command = command;
         this.parameters = parameters;
     }
-    
+
     /**
      * Creates a new message to be sent to the server.
+     *
      * @param command The command to be sent
      * @param parameters The parameters associated with the command
      */
@@ -63,20 +64,20 @@ public class IRCMessage {
 
         return "";
     }
-    
+
     // TODO: These two methods are somewhat nasty. Get rid of them.
     private static String combineParameters(String[] parameters, int startIndex) {
         StringBuilder builder = new StringBuilder();
-        
+
         // The element at the start index begins with a colon, strip it away
         String start = parameters[startIndex].substring(1);
         builder.append(start);
-        
-        for(int i = startIndex + 1; i < parameters.length; i++) {
+
+        for (int i = startIndex + 1; i < parameters.length; i++) {
             builder.append(' ');
             builder.append(parameters[i]);
         }
-        
+
         return builder.toString();
     }
 
@@ -84,38 +85,39 @@ public class IRCMessage {
         // First check if parameters need to be concatenated at all
         boolean needsProcessing = false;
 
-        for(String s : parameters) {
-            if(s.startsWith(":")) {
+        for (String s : parameters) {
+            if (s.startsWith(":")) {
                 needsProcessing = true;
                 break;
             }
         }
-        
-        if(!needsProcessing) {
+
+        if (!needsProcessing) {
             // No need to do anything, return the original parameters
             return parameters;
         }
-        
+
         ArrayList<String> newParameters = new ArrayList<String>();
-        
-        for(int i = 0; i < parameters.length; i++) {
-            if(parameters[i].startsWith(":")) {
+
+        for (int i = 0; i < parameters.length; i++) {
+            if (parameters[i].startsWith(":")) {
                 // Found the starting point of a whole string, combine it
                 String combined = combineParameters(parameters, i);
-                
+
                 newParameters.add(combined);
                 break;
             }
-            
+
             newParameters.add(parameters[i]);
         }
-        
+
         String[] array = newParameters.toArray(parameters);
         return Arrays.copyOfRange(array, 0, newParameters.size());
     }
-    
+
     /**
      * Parses a line into an IRCMessage object.
+     *
      * @param line The line read from the IRC stream.
      * @return The parsed message
      */
@@ -142,10 +144,28 @@ public class IRCMessage {
 
         // Copy the rest of the parameters into a new array.
         parameters = Arrays.copyOfRange(parts, paramsStartIndex, parts.length);
-        
+
         // Combine the parameter strings according to the protocol rules
         parameters = processParameters(parameters);
 
         return new IRCMessage(prefix, command, parameters);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.ensureCapacity(512);
+
+        if (!prefix.isEmpty()) {
+            sb.append(prefix).append(' ');
+        }
+        
+        sb.append(command);
+
+        for (String parameter : parameters) {
+            sb.append(' ').append(parameter);
+        }
+
+        return sb.toString();
     }
 }

@@ -112,4 +112,11 @@ public class IRCMessageTest {
         assertEquals(msg.getParameters()[0], "#channel");
         assertEquals(msg.getParameters()[1], "word1");
     }
+    
+    @Test
+    public void testToString() {
+        IRCMessage msg = new IRCMessage("PRIVMSG", "#channel", ":my sentence");
+           
+        assertTrue(msg.toString().equals("PRIVMSG #channel :my sentence"));
+    }
 }
