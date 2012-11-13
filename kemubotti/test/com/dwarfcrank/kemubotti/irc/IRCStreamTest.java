@@ -5,9 +5,6 @@
 package com.dwarfcrank.kemubotti.irc;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
 
@@ -21,65 +18,6 @@ public class IRCStreamTest {
     TestOutputStream outStream;
     IRCStream stream;
     String[] testLines;
-
-    class TestInputStream extends InputStream {
-
-        private byte[] bytes;
-        private int position;
-
-        public TestInputStream(String text) {
-            try {
-                // Try converting to UTF-8 first, it's what the IRCStream class
-                // uses as the encoding. Otherwise strings with certain characters
-                // will break and thus fail the test.
-                bytes = text.getBytes("UTF-8");
-            } catch (UnsupportedEncodingException ex) {
-                bytes = text.getBytes();
-            }
-            
-            position = 0;
-        }
-
-        @Override
-        public void reset() throws IOException {
-            position = 0;
-
-            super.reset();
-        }
-
-        @Override
-        public int read() throws IOException {
-            if (position >= bytes.length) {
-                return -1;
-            }
-
-            int ret = bytes[position];
-            position++;
-
-            return ret;
-        }
-    }
-    
-    class TestOutputStream extends OutputStream {
-        private StringBuilder stringBuilder;
-
-        public TestOutputStream() {
-            stringBuilder = new StringBuilder();
-        }
-        
-        @Override
-        public void write(int i) throws IOException {
-            stringBuilder.append((char)i);
-        }
-        
-        public String getString() {
-            return stringBuilder.toString();
-        }
-        
-        public void reset() {
-            stringBuilder = new StringBuilder();
-        }
-    }
 
     /**
      * 
