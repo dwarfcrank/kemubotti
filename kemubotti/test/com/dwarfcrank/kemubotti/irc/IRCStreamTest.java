@@ -70,7 +70,7 @@ public class IRCStreamTest {
         inStream = new TestInputStream(text);
         outStream = new TestOutputStream();
         
-        stream = new IRCStream(inStream, outStream, "localhost");
+        stream = new IRCStream(inStream, outStream);
     }
 
     /**

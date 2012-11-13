@@ -10,21 +10,11 @@ public class IRCStream {
 
     private OutputStreamWriter outputStreamWriter;
     private InputStreamReader inputStreamReader;
-    private String hostName;
     private static final String CHARSET = "UTF-8";
     // The IRC protocol specifies that the length of a message may not exceed
     // 512 bytes, so we can use that as the minimum capacity for the StringBuilder
     // used for reading.
     private static final int BUFFER_SIZE = 512;
-
-    /**
-     * Gets the hostname this stream is currently connected to.
-     *
-     * @return The hostname of the connection
-     */
-    public String getHostName() {
-        return hostName;
-    }
 
     /**
      * Creates a new IRC stream that can be written to or read from.
@@ -34,11 +24,9 @@ public class IRCStream {
      * @param hostName The hostname that this stream is connected to
      * @throws IOException
      */
-    public IRCStream(InputStream inputStream, OutputStream outputStream, String hostName) throws IOException {
+    public IRCStream(InputStream inputStream, OutputStream outputStream) throws IOException {
         outputStreamWriter = new OutputStreamWriter(outputStream, CHARSET);
         inputStreamReader = new InputStreamReader(inputStream, CHARSET);
-
-        this.hostName = hostName;
     }
 
     /**
