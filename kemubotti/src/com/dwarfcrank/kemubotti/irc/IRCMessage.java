@@ -151,6 +151,11 @@ public class IRCMessage {
         return new IRCMessage(prefix, command, parameters);
     }
 
+    /**
+     * Returns the string representation of this message, ready to be written to
+     * the server stream.
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
