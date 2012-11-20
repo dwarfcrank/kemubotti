@@ -21,7 +21,6 @@ public class IRCStream {
      *
      * @param inputStream The stream to read from
      * @param outputStream The stream to write to
-     * @param hostName The hostname that this stream is connected to
      * @throws IOException
      */
     public IRCStream(InputStream inputStream, OutputStream outputStream) throws IOException {
