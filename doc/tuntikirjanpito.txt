@@ -2,3 +2,4 @@
 5/11/2012: Käytetty aikaa noin kaksi tuntia. Loin IRCStream-luokan toteutuksen ja testit.
 6/11/2012: Käytetty aikaa noin kolme tuntia. Loin IRCMessage-luokan toteutuksen ja testit.
 13/11/2012: Käytetty aikaa noin kolme tuntia IRCServer-luokan toteutukseen ja testeihin, muiden testien refaktorointiin ja luokkakaavion piirtämiseen.
+20/11/2012: Käytetty aikaa noin kaksi tuntia IRCMessageHandler-luokan toteutukseen, javadocin päivittämiseen ja testien päivittämiseen.
