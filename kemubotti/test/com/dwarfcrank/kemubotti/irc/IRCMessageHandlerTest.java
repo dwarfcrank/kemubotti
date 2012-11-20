@@ -24,7 +24,7 @@ public class IRCMessageHandlerTest {
         }
         
         @Override
-        protected void run(IRCServer server) {
+        protected void run(IRCServer server, IRCMessage message) {
             hasBeenRun = true;
         }
         
@@ -52,7 +52,7 @@ public class IRCMessageHandlerTest {
     @Test
     public void testUnknownMessage() {
         try {
-            IRCMessageHandler.handleMessage("NOTFOUND", null);
+            IRCMessageHandler.handleMessage(new IRCMessage("NOTFOUND"), null);
         } catch(UnknownMessageException ex) {
             // Success!
         }
@@ -62,7 +62,7 @@ public class IRCMessageHandlerTest {
     public void testMessage() throws UnknownMessageException {
         TestMessageHandler handler = new TestMessageHandler();
         
-        IRCMessageHandler.handleMessage("TESTMSG", null);
+        IRCMessageHandler.handleMessage(new IRCMessage("TESTMSG"), null);
         
         assertTrue(handler.hasBeenRun);
     }

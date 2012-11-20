@@ -22,8 +22,9 @@ public abstract class IRCMessageHandler {
      * This "actually" handles the message. Need a better name for it!
      *
      * @param server The server the message originated from.
+     * @param message The message contents.
      */
-    protected abstract void run(IRCServer server);
+    protected abstract void run(IRCServer server, IRCMessage message);
 
     /**
      * Adds a message handler to the list of available handlers. It is marked as
@@ -46,14 +47,14 @@ public abstract class IRCMessageHandler {
      * Routes a message to the appropiate message handler. This only handles
      * messages incoming from the server!
      *
-     * @param message The name of the message to handle (case sensitive).
+     * @param message The message to handle (case sensitive).
      * @param server The server this message originates from.
      * @throws UnknownMessageException If there is no handler for this message.
      */
-    public static void handleMessage(String message, IRCServer server)
+    public static void handleMessage(IRCMessage message, IRCServer server)
             throws UnknownMessageException {
-        if (messageHandlers.containsKey(message)) {
-            IRCMessageHandler handler = messageHandlers.get(message);
+        if (messageHandlers.containsKey(message.getCommand())) {
+            IRCMessageHandler handler = messageHandlers.get(message.getCommand());
             
             // If the message name exists but the handler is null, the message
             // is ignored.
@@ -61,9 +62,9 @@ public abstract class IRCMessageHandler {
                 return;
             }
             
-            handler.run(server);
+            handler.run(server, message);
         } else {
-            throw new UnknownMessageException(message, server);
+            throw new UnknownMessageException(message.getCommand(), server);
         }
     }
 }
