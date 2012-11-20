@@ -46,12 +46,42 @@ public class IRCServer {
     }
     
     /**
+     * The server loop handles incoming messages as they are received and ends
+     * if the connection with the server has been lost.
+     */
+    public void serverLoop() {
+        while(socket.isConnected()) {
+            try {
+                IRCMessage message = readMessage();
+                IRCMessageHandler.handleMessage(message, this);
+            } catch (IOException ex) {
+                break;
+            }  catch (UnknownMessageException ex) {
+                // TODO: Some better error reporting...
+                System.out.println("Unknown message " + ex.getMessageName() + "!");
+                break;
+            }
+        }
+    }
+    
+    /**
      * Sends a message to the remote server.
      * @param message The message to send.
      * @throws IOException
      */
     public void sendMessage(IRCMessage message) throws IOException {
         ircStream.writeLine(message.toString());
+    }
+    
+    /**
+     * Reads a single message from the server.
+     * @return The read message.
+     * @throws IOException
+     */
+    public IRCMessage readMessage() throws IOException {
+        String line = ircStream.readLine();
+        
+        return IRCMessage.parseMessage(line);
     }
     
     /**
