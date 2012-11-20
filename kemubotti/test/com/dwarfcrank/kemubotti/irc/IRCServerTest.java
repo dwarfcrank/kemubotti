@@ -101,6 +101,9 @@ public class IRCServerTest {
     @Test
     public void testConnect() throws IOException {
         assertTrue(server != null);
+        
+        assertEquals("NICK kemubotti\r\n", socket.outputStream.getString());
+        assertEquals("USER kemubotti kemubotti kemubotti :KEMUbotti\r\n", socket.outputStream.getString());
     }
 
     @Test
@@ -116,6 +119,11 @@ public class IRCServerTest {
         
         server.sendMessage(msg);
         
-        assertEquals(socket.outputStream.getString(), "PRIVMSG #channel :test sentence\r\n");
+        // IRCServer.connect() sends two messages automatically, get them out
+        // of the message queue.
+        socket.outputStream.getString();
+        socket.outputStream.getString();
+        
+        assertEquals("PRIVMSG #channel :test sentence\r\n", socket.outputStream.getString());
     }
 }

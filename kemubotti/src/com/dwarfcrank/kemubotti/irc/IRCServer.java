@@ -28,14 +28,21 @@ public class IRCServer {
     }
     
     /**
-     * Connects to an IRC server.
+     * Connects to an IRC server and sends basic initialization messages.
      * @param socket The socket to use for the connection.
      * @return Returns a new IRCServer object that can be used to interface with
      * the remote server.
      * @throws IOException
      */
     public static IRCServer connect(Socket socket) throws IOException {
-        return new IRCServer(socket);
+        IRCServer server = new IRCServer(socket);
+        
+        // TODO: Add a config system for nicks and such!
+        server.sendMessage(new IRCMessage("NICK", "kemubotti"));
+        server.sendMessage(new IRCMessage("USER", "kemubotti", "kemubotti",
+                "kemubotti", ":KEMUbotti"));
+        
+        return server;
     }
     
     /**
