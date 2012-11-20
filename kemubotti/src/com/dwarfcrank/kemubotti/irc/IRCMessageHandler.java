@@ -1,0 +1,69 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.dwarfcrank.kemubotti.irc;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ *
+ * @author dwarfcrank
+ */
+public abstract class IRCMessageHandler {
+
+    static {
+        messageHandlers = new HashMap<String, IRCMessageHandler>();        
+    }
+    private static Map<String, IRCMessageHandler> messageHandlers;
+
+    /**
+     * This "actually" handles the message. Need a better name for it!
+     *
+     * @param server The server the message originated from.
+     */
+    protected abstract void run(IRCServer server);
+
+    /**
+     * Adds a message handler to the list of available handlers. It is marked as
+     * protected because only message handlers themselves are allowed to add
+     * themselves to the list.
+     *
+     * @param messageName Message to handle.
+     * @param handler The actual handler object that receives this message.
+     */
+    protected static void addMessageHandler(String messageName,
+            IRCMessageHandler handler) {
+        messageHandlers.put(messageName, handler);
+    }
+
+    private static void ignoreMessage(String message) {
+        messageHandlers.put(message, null);
+    }
+    
+    /**
+     * Routes a message to the appropiate message handler. This only handles
+     * messages incoming from the server!
+     *
+     * @param message The name of the message to handle (case sensitive).
+     * @param server The server this message originates from.
+     * @throws UnknownMessageException If there is no handler for this message.
+     */
+    public static void handleMessage(String message, IRCServer server)
+            throws UnknownMessageException {
+        if (messageHandlers.containsKey(message)) {
+            IRCMessageHandler handler = messageHandlers.get(message);
+            
+            // If the message name exists but the handler is null, the message
+            // is ignored.
+            if(handler == null) {
+                return;
+            }
+            
+            handler.run(server);
+        } else {
+            throw new UnknownMessageException(message, server);
+        }
+    }
+}
