@@ -65,7 +65,6 @@ public class IRCServer {
             }  catch (UnknownMessageException ex) {
                 // TODO: Some better error reporting...
                 System.out.println("Unknown message " + ex.getMessageName() + "!");
-                break;
             }
         }
     }
