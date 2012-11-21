@@ -51,7 +51,7 @@ public class IRCMessageHandlerTest {
     }
 
     @Test
-    public void testUnknownMessage() {
+    public void testUnknownMessage() throws IOException {
         try {
             IRCMessageHandler.handleMessage(new IRCMessage("NOTFOUND"), null);
         } catch(UnknownMessageException ex) {
