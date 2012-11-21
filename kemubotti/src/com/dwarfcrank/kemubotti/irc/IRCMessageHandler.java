@@ -17,7 +17,13 @@ public abstract class IRCMessageHandler {
     static {
         messageHandlers = new HashMap<String, IRCMessageHandler>();        
         
+        // Ignore MOTD as it has no meaning to a bot.
+        ignoreMessage("375"); // RPL_MOTDSTART
+        ignoreMessage("372"); // RPL_MOTD
+        ignoreMessage("376"); // RPL_MOTDEND
+        
         addMessageHandler("PING", new PingHandler());
+        addMessageHandler("001", new WelcomeHandler());
     }
     private static Map<String, IRCMessageHandler> messageHandlers;
 
