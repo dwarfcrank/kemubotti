@@ -16,6 +16,8 @@ public abstract class IRCMessageHandler {
 
     static {
         messageHandlers = new HashMap<String, IRCMessageHandler>();        
+        
+        addMessageHandler("PING", new PingHandler());
     }
     private static Map<String, IRCMessageHandler> messageHandlers;
 
