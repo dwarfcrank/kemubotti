@@ -23,7 +23,7 @@ public abstract class IRCMessageHandler {
         ignoreMessage("376"); // RPL_MOTDEND
         
         addMessageHandler("PING", new PingHandler());
-        addMessageHandler("001", new WelcomeHandler());
+        addMessageHandler("001", new RplWelcomeHandler());
     }
     private static Map<String, IRCMessageHandler> messageHandlers;
 

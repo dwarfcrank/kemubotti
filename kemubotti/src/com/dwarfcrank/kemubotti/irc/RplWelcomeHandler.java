@@ -10,7 +10,7 @@ import java.io.IOException;
  *
  * @author madjuntu
  */
-public class WelcomeHandler extends IRCMessageHandler {
+public class RplWelcomeHandler extends IRCMessageHandler {
 
     @Override
     protected void run(IRCServer server, IRCMessage message) throws IOException {
