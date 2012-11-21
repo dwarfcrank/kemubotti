@@ -4,6 +4,7 @@
  */
 package com.dwarfcrank.kemubotti.irc;
 
+import java.io.IOException;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -59,7 +60,7 @@ public class IRCMessageHandlerTest {
     }
     
     @Test
-    public void testMessage() throws UnknownMessageException {
+    public void testMessage() throws UnknownMessageException, IOException {
         TestMessageHandler handler = new TestMessageHandler();
         
         IRCMessageHandler.handleMessage(new IRCMessage("TESTMSG"), null);

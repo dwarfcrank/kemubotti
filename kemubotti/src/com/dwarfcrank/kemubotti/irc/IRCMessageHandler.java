@@ -4,6 +4,7 @@
  */
 package com.dwarfcrank.kemubotti.irc;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +25,8 @@ public abstract class IRCMessageHandler {
      * @param server The server the message originated from.
      * @param message The message contents.
      */
-    protected abstract void run(IRCServer server, IRCMessage message);
+    protected abstract void run(IRCServer server, IRCMessage message)
+            throws IOException;
 
     /**
      * Adds a message handler to the list of available handlers. It is marked as
@@ -52,7 +54,7 @@ public abstract class IRCMessageHandler {
      * @throws UnknownMessageException If there is no handler for this message.
      */
     public static void handleMessage(IRCMessage message, IRCServer server)
-            throws UnknownMessageException {
+            throws UnknownMessageException, IOException {
         if (messageHandlers.containsKey(message.getCommand())) {
             IRCMessageHandler handler = messageHandlers.get(message.getCommand());
             
