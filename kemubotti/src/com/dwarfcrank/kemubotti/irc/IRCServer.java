@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -18,6 +20,8 @@ public class IRCServer {
     private IRCStream ircStream;
     private Socket socket;
     
+    private Map<String, IRCChannel> channels;
+    
     private IRCServer(Socket socket) throws IOException {
         this.socket = socket;
         
@@ -25,6 +29,8 @@ public class IRCServer {
         OutputStream outStream = socket.getOutputStream();
         
         ircStream = new IRCStream(inStream, outStream);
+        
+        channels = new HashMap<String, IRCChannel>();
     }
     
     /**
@@ -92,5 +98,26 @@ public class IRCServer {
         socket.close();
     }
     
+    public IRCChannel joinChannel(String name) throws IOException {        
+        if(channels.containsKey(name)) {
+            return channels.get(name);
+        }
+        
+        sendMessage(new IRCMessage("JOIN", name));
+        
+        IRCChannel channel = new IRCChannel(this, name);
+        
+        channels.put(name, channel);
+        
+        return channel;
+    }
     
+    public void partChannel(String name) throws IOException {
+        if(!channels.containsKey(name)) {
+            return;
+        }
+        
+        sendMessage(new IRCMessage("PART", name));
+        channels.remove(name);
+    }
 }
