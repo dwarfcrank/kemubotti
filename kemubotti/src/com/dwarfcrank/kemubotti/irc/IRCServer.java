@@ -33,6 +33,11 @@ public class IRCServer {
         channels = new HashMap<String, IRCChannel>();
     }
     
+    // Required for mocking this class. Not actually used otherwise.
+    protected IRCServer() {
+        
+    }
+    
     /**
      * Connects to an IRC server and sends basic initialization messages.
      * @param socket The socket to use for the connection.
