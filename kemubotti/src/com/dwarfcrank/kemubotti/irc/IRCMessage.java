@@ -146,7 +146,11 @@ public class IRCMessage {
         parameters = Arrays.copyOfRange(parts, paramsStartIndex, parts.length);
 
         // Combine the parameter strings according to the protocol rules
-        parameters = processParameters(parameters);
+        // HACK: If message is PING, don't do it. Some servers send the message
+        // in the form PING :x where x is a big number. This messes it up.
+        if(!command.equals("PING")) {
+            parameters = processParameters(parameters);
+        }
 
         return new IRCMessage(prefix, command, parameters);
     }
