@@ -7,6 +7,8 @@ package com.dwarfcrank.kemubotti.irc;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,12 +33,20 @@ public class IRCChannel {
         return name;
     }
     
-    public void part() throws IOException {
-        server.partChannel(name);
+    public void part() {
+        try {
+            server.partChannel(name);
+        } catch (IOException ex) {
+            Logger.getLogger(IRCChannel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public void say(String text) throws IOException {
-        server.sendMessage(new IRCMessage("PRIVMSG", name, ":" + text));
+    public void say(String text) {
+        try {
+            server.sendMessage(new IRCMessage("PRIVMSG", name, ":" + text));
+        } catch (IOException ex) {
+            Logger.getLogger(IRCChannel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void addUser(String name) {
