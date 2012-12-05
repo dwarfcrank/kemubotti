@@ -116,6 +116,14 @@ public class IRCServer {
         return channel;
     }
     
+    public IRCChannel getChannel(String name) {
+        if(channels.containsKey(name)) {
+            return channels.get(name);
+        }
+        
+        return null;
+    }
+    
     public void partChannel(String name) throws IOException {
         if(!channels.containsKey(name)) {
             return;
