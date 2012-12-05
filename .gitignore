@@ -1,3 +1,4 @@
 *.odt
 /kemubotti/build/
 /kemubotti/nbproject/private/profiler
+/kemubotti/dist/
