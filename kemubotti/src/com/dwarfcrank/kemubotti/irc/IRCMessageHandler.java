@@ -35,6 +35,7 @@ public abstract class IRCMessageHandler {
         addMessageHandler("PING", new PingHandler());
         addMessageHandler("001", new RplWelcomeHandler());
         addMessageHandler("353", new RplNamesHandler());
+        addMessageHandler("PRIVMSG", new PrivmsgHandler());
     }
     private static Map<String, IRCMessageHandler> messageHandlers;
 
