@@ -5,7 +5,6 @@
 package com.dwarfcrank.kemubotti;
 
 import com.dwarfcrank.kemubotti.irc.IRCChannel;
-import java.util.Date;
 
 /**
  *
