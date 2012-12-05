@@ -16,6 +16,7 @@ import com.dwarfcrank.kemubotti.irc.IRCServer;
 public class Bot {
 
     private IRCServer server;
+    private EventDatabase eventDatabase;
 
     private String getCommandFromLine(String line) {
         String[] parts = line.split(" ");
@@ -44,7 +45,12 @@ public class Bot {
         CommandHandler.HandleCommand(command, sender, channel, line);
     }
 
+    public EventDatabase getEventDatabase() {
+        return eventDatabase;
+    }
+
     public Bot(IRCServer server) {
         this.server = server;
+        eventDatabase = new EventDatabase();
     }
 }
