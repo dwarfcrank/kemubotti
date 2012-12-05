@@ -4,6 +4,7 @@
  */
 package com.dwarfcrank.kemubotti.irc;
 
+import com.dwarfcrank.kemubotti.Bot;
 import com.dwarfcrank.kemubotti.Config;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +22,8 @@ public class IRCServer {
     private IRCStream ircStream;
     private Socket socket;
     
+    private Bot bot;
+    
     private Map<String, IRCChannel> channels;
     
     private IRCServer(Socket socket) throws IOException {
@@ -32,6 +35,8 @@ public class IRCServer {
         ircStream = new IRCStream(inStream, outStream);
         
         channels = new HashMap<String, IRCChannel>();
+        
+        bot = new Bot(this);
     }
     
     // Required for mocking this class. Not actually used otherwise.
@@ -133,4 +138,8 @@ public class IRCServer {
         sendMessage(new IRCMessage("PART", name));
         channels.remove(name);
     }
+
+    public Bot getBot() {
+        return bot;
+    }    
 }
