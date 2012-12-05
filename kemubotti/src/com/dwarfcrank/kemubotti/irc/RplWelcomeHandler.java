@@ -4,6 +4,7 @@
  */
 package com.dwarfcrank.kemubotti.irc;
 
+import com.dwarfcrank.kemubotti.Config;
 import java.io.IOException;
 
 /**
@@ -14,7 +15,7 @@ public class RplWelcomeHandler extends IRCMessageHandler {
 
     @Override
     protected void run(IRCServer server, IRCMessage message) throws IOException {
-        server.joinChannel("#datism");
+        server.joinChannel(Config.getString("channel"));
     }
     
 }
