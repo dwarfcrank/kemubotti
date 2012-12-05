@@ -17,6 +17,11 @@ public abstract class CommandHandler {
     private static Map<String, CommandHandler> commands 
             = new HashMap<String, CommandHandler>();
     
+    static {
+        addHandler("addevent", new AddeventHandler());
+        addHandler("listevents", new ListeventsHandler());
+    }
+    
     protected abstract void run(String sender, IRCChannel channel, String line);
     
     protected static void addHandler(String command, CommandHandler handler) {
