@@ -4,6 +4,7 @@
  */
 package com.dwarfcrank.kemubotti.irc;
 
+import com.dwarfcrank.kemubotti.Config;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -49,9 +50,9 @@ public class IRCServer {
         IRCServer server = new IRCServer(socket);
         
         // TODO: Add a config system for nicks and such!
-        server.sendMessage(new IRCMessage("NICK", "kemubotti"));
-        server.sendMessage(new IRCMessage("USER", "kemubotti", "kemubotti",
-                "kemubotti", ":KEMUbotti"));
+        server.sendMessage(new IRCMessage("NICK", Config.getString("nick")));
+        server.sendMessage(new IRCMessage("USER", Config.getString("user_name"),
+                "0", "*", ":" + Config.getString("real_name")));
         
         return server;
     }
