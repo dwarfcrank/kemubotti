@@ -22,6 +22,16 @@ public abstract class IRCMessageHandler {
         ignoreMessage("372"); // RPL_MOTD
         ignoreMessage("376"); // RPL_MOTDEND
         
+        ignoreMessage("366"); // RPL_ENDOFNAMES
+        
+        ignoreMessage("002"); // RPL_YOURHOST
+        ignoreMessage("003"); // RPL_CREATED
+        ignoreMessage("004"); // RPL_MYINFO
+        
+        // This is a strange one. It's RPL_BOUNCE, but at least QuakeNet doesn't
+        // use it like that. Maybe the spec is outdated?
+        ignoreMessage("005");
+        
         addMessageHandler("PING", new PingHandler());
         addMessageHandler("001", new RplWelcomeHandler());
         addMessageHandler("353", new RplNamesHandler());
