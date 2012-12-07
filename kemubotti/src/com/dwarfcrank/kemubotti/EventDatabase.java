@@ -16,10 +16,18 @@ public class EventDatabase {
 
     private List<Event> events;
 
+    /**
+     * Constructs a new EventDatabase instance.
+     */
     public EventDatabase() {
         events = new ArrayList<Event>();
     }
 
+    /**
+     * Adds an event in the list. If the event is already present it will not be
+     * added twice.
+     * @param event The event to add.
+     */
     public void addEvent(Event event) {
         if (!events.contains(event)) {
             events.add(event);
@@ -28,6 +36,10 @@ public class EventDatabase {
         }
     }
 
+    /**
+     * Gets a list of all events in this database.
+     * @return
+     */
     public List<Event> getEvents() {
         return events;
     }
