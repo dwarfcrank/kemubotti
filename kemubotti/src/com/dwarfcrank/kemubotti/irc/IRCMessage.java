@@ -22,14 +22,27 @@ public class IRCMessage {
      */
     protected String[] parameters;
 
+    /**
+     * Gets the command this message carries.
+     * @return
+     */
     public String getCommand() {
         return command;
     }
 
+    /**
+     * Gets the list of parameters this message carries.
+     * @return
+     */
     public String[] getParameters() {
         return parameters;
     }
 
+    /**
+     * Gets the prefix (sender) of this message. If empty, there is no prefix and
+     * the message is generated locally.
+     * @return
+     */
     public String getPrefix() {
         return prefix;
     }
