@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dwarfcrank.kemubotti.irc;
 
 import java.io.IOException;
@@ -26,18 +22,18 @@ public class TestOutputStream extends OutputStream {
     @Override
     public void write(int i) throws IOException {
         stringBuilder.append((char) i);
-        
-        if((char)i == '\n') {
+
+        if ((char) i == '\n') {
             strings.add(stringBuilder.toString());
             stringBuilder = new StringBuilder();
         }
     }
 
     public String getString() {
-        if(strings.isEmpty()) {
+        if (strings.isEmpty()) {
             return "";
         }
-        
+
         String ret = strings.get(0);
         strings.remove(0);
         return ret;

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dwarfcrank.kemubotti.irc;
 
 import java.io.IOException;
@@ -15,12 +11,15 @@ import java.util.logging.Logger;
  * @author madjuntu
  */
 public class IRCChannel {
+
     private IRCServer server;
     private String name;
     private Set<String> users;
 
     /**
-     * Creates a new IRCChannel instance on the given server and with the given name.
+     * Creates a new IRCChannel instance on the given server and with the given
+     * name.
+     *
      * @param server The server this channel is on.
      * @param name The name of this channel.
      */
@@ -32,6 +31,7 @@ public class IRCChannel {
 
     /**
      * Gets the server this channel is on.
+     *
      * @return
      */
     public IRCServer getServer() {
@@ -40,12 +40,13 @@ public class IRCChannel {
 
     /**
      * Gets the name of this channel.
+     *
      * @return
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * Leaves the channel.
      */
@@ -56,9 +57,10 @@ public class IRCChannel {
             Logger.getLogger(IRCChannel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Sends a message to the channel.
+     *
      * @param text The text to send to the channel.
      */
     public void say(String text) {
@@ -68,21 +70,23 @@ public class IRCChannel {
             Logger.getLogger(IRCChannel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Adds an user to the channel user list.
+     *
      * @param name
      */
     public void addUser(String name) {
         users.add(name);
     }
-    
+
     /**
      * Removes an user from the channel user list.
+     *
      * @param name
      */
     public void removeUser(String name) {
-        if(users.contains(name)) {
+        if (users.contains(name)) {
             users.remove(name);
         }
     }

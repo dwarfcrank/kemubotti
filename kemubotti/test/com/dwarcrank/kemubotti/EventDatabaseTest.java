@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dwarcrank.kemubotti;
 
 import com.dwarfcrank.kemubotti.Event;
@@ -9,8 +5,9 @@ import com.dwarfcrank.kemubotti.EventDatabase;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -45,7 +42,7 @@ public class EventDatabaseTest {
 
         c.clear();
         c.set(year, month - 1, day);
-        
+
         return c.getTime();
     }
     

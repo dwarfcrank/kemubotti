@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dwarfcrank.kemubotti.irc;
 
 import java.io.IOException;
@@ -15,17 +11,17 @@ public class TestServer extends IRCServer {
 
     private ArrayList<IRCMessage> sentMessages;
     private ArrayList<IRCMessage> readMessages;
-    
+
     /**
      *
      */
     public TestServer() {
         super();
-        
+
         sentMessages = new ArrayList<IRCMessage>();
         readMessages = new ArrayList<IRCMessage>();
     }
-    
+
     public void addMessage(IRCMessage message) {
         readMessages.add(message);
     }
@@ -37,7 +33,7 @@ public class TestServer extends IRCServer {
     public ArrayList<IRCMessage> getReadMessages() {
         return readMessages;
     }
-    
+
     @Override
     public void serverLoop() {
     }
@@ -63,7 +59,5 @@ public class TestServer extends IRCServer {
 
     @Override
     public void partChannel(String name) throws IOException {
-        
     }
-    
 }

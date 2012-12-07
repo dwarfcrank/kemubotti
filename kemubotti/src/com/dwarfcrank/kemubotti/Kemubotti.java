@@ -1,9 +1,7 @@
 package com.dwarfcrank.kemubotti;
 
 import com.dwarfcrank.kemubotti.irc.IRCServer;
-import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  *
@@ -17,12 +15,12 @@ public class Kemubotti {
     public static void main(String[] args) {
         try {
             Socket s = new Socket(Config.getString("server_address"),
-                Config.getInteger("server_port"));
+                    Config.getInteger("server_port"));
 
             IRCServer server = IRCServer.connect(s);
 
             server.serverLoop();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }

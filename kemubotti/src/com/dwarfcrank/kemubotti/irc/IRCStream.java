@@ -70,13 +70,13 @@ public class IRCStream {
                 }
 
                 // No \r\n, write the characters to the string and continue.
-                builder.append((char)character);
-                builder.append((char)nextChar);
+                builder.append((char) character);
+                builder.append((char) nextChar);
 
                 continue;
             }
 
-            builder.append((char)character);
+            builder.append((char) character);
             character = inputStreamReader.read();
         }
 

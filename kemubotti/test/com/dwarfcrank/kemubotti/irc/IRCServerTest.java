@@ -1,15 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dwarfcrank.kemubotti.irc;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -69,7 +66,7 @@ public class IRCServerTest {
         public void setThrowException(boolean throwException) {
             this.throwException = throwException;
         }
-    }    
+    }
 
     public IRCServerTest() {
     }
@@ -101,7 +98,7 @@ public class IRCServerTest {
     @Test
     public void testConnect() throws IOException {
         assertTrue(server != null);
-        
+
         assertEquals("NICK kemubotti\r\n", socket.outputStream.getString());
         assertEquals("USER kemubotti kemubotti kemubotti :KEMUbotti\r\n", socket.outputStream.getString());
     }
@@ -109,21 +106,21 @@ public class IRCServerTest {
     @Test
     public void testDisconnect() throws IOException {
         server.disconnect();
-        
+
         assertTrue(socket.isClosed());
     }
-    
+
     @Test
     public void testSendMessage() throws IOException {
         IRCMessage msg = new IRCMessage("PRIVMSG", "#channel", ":test sentence");
-        
+
         server.sendMessage(msg);
-        
+
         // IRCServer.connect() sends two messages automatically, get them out
         // of the message queue.
         socket.outputStream.getString();
         socket.outputStream.getString();
-        
+
         assertEquals("PRIVMSG #channel :test sentence\r\n", socket.outputStream.getString());
     }
 }

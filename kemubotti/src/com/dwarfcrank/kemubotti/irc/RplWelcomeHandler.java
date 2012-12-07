@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dwarfcrank.kemubotti.irc;
 
 import com.dwarfcrank.kemubotti.Config;
@@ -17,5 +13,4 @@ public class RplWelcomeHandler extends IRCMessageHandler {
     protected void run(IRCServer server, IRCMessage message) throws IOException {
         server.joinChannel(Config.getString("channel"));
     }
-    
 }

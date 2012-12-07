@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dwarfcrank.kemubotti;
 
 import java.util.ArrayList;
@@ -26,6 +22,7 @@ public class EventDatabase {
     /**
      * Adds an event in the list. If the event is already present it will not be
      * added twice.
+     *
      * @param event The event to add.
      */
     public void addEvent(Event event) {
@@ -38,6 +35,7 @@ public class EventDatabase {
 
     /**
      * Gets a list of all events in this database.
+     *
      * @return
      */
     public List<Event> getEvents() {

@@ -24,6 +24,7 @@ public class IRCMessage {
 
     /**
      * Gets the command this message carries.
+     *
      * @return
      */
     public String getCommand() {
@@ -32,6 +33,7 @@ public class IRCMessage {
 
     /**
      * Gets the list of parameters this message carries.
+     *
      * @return
      */
     public String[] getParameters() {
@@ -39,8 +41,9 @@ public class IRCMessage {
     }
 
     /**
-     * Gets the prefix (sender) of this message. If empty, there is no prefix and
-     * the message is generated locally.
+     * Gets the prefix (sender) of this message. If empty, there is no prefix
+     * and the message is generated locally.
+     *
      * @return
      */
     public String getPrefix() {
@@ -161,7 +164,7 @@ public class IRCMessage {
         // Combine the parameter strings according to the protocol rules
         // HACK: If message is PING, don't do it. Some servers send the message
         // in the form PING :x where x is a big number. This messes it up.
-        if(!command.equals("PING")) {
+        if (!command.equals("PING")) {
             parameters = processParameters(parameters);
         }
 
@@ -171,6 +174,7 @@ public class IRCMessage {
     /**
      * Returns the string representation of this message, ready to be written to
      * the server stream.
+     *
      * @return
      */
     @Override
@@ -181,7 +185,7 @@ public class IRCMessage {
         if (!prefix.isEmpty()) {
             sb.append(prefix).append(' ');
         }
-        
+
         sb.append(command);
 
         for (String parameter : parameters) {
