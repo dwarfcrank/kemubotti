@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  * @author dwarfcrank
  */
 public class Event implements Comparable<Event> {
+    private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private Date date;
     private String name;
     
@@ -62,19 +63,15 @@ public class Event implements Comparable<Event> {
      */
     @Override
     public String toString() {        
-        return date.toString() + " : " + name;
+        return dateFormat.format(date) + " : " + name;
     }
     
-    private static Date parseDate(String text) {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        
-        try {
-            Date d = df.parse(text);
-            return d;
-        } catch (ParseException ex) {
-            return null;
-        }
+    private static Date parseDate(String text) throws ParseException {        
+        Date d = dateFormat.parse(text);
+        return d;
     }
+    
+    
     
     /**
      * Parses a new Event from a string. The string format is expected to be
@@ -82,7 +79,7 @@ public class Event implements Comparable<Event> {
      * @param text The text to parse from.
      * @return A new Event with the parsed date and name.
      */
-    public static Event parseEvent(String text) {
+    public static Event parseEvent(String text) throws ParseException {
         String[] parts = text.split(" ");
         
         Date d = null;
