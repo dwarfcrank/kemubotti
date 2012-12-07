@@ -19,24 +19,47 @@ public class Event implements Comparable<Event> {
     private Date date;
     private String name;
     
+    /**
+     * Constructs a new Event instance with the given date and name.
+     * @param date
+     * @param name
+     */
     public Event(Date date, String name) {
         this.date = date;
         this.name = name;
     }
     
+    /**
+     * Gets the date of this event.
+     * @return
+     */
     public Date getDate() {
         return date;
     }
     
+    /**
+     * Gets the name of this event.
+     * @return
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * Compares this Event to another Event. The event name is completely irrelevant
+     * to this comparison as the comparison is based entirely on dates.
+     * @param t The other Event to compare to.
+     * @return < 0 if the event is earlier than t, > 0 if the event is later than t and 0 if it is at the same time as t.
+     */
     @Override
     public int compareTo(Event t) {
         return date.compareTo(t.date);
     }
     
+    /**
+     * Returns a string representation of this Event.
+     * @return
+     */
     @Override
     public String toString() {        
         return date.toString() + " : " + name;
@@ -53,6 +76,12 @@ public class Event implements Comparable<Event> {
         }
     }
     
+    /**
+     * Parses a new Event from a string. The string format is expected to be
+     * dd/mm/yyyy with the rest of the line being the name of the event.
+     * @param text The text to parse from.
+     * @return A new Event with the parsed date and name.
+     */
     public static Event parseEvent(String text) {
         String[] parts = text.split(" ");
         
