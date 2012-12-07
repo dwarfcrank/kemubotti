@@ -40,6 +40,9 @@ public class IRCServer {
     }
     
     // Required for mocking this class. Not actually used otherwise.
+    /**
+     * 
+     */
     protected IRCServer() {
         
     }
@@ -108,6 +111,13 @@ public class IRCServer {
         socket.close();
     }
     
+    /**
+     * Joins a channel.
+     * @param name Name of the channel to join.
+     * @return An IRCChannel object representing this channel.
+     * @throws IOException This exception will be thrown if there is an issue
+     * sending the join message.
+     */
     public IRCChannel joinChannel(String name) throws IOException {        
         if(channels.containsKey(name)) {
             return channels.get(name);
@@ -122,6 +132,11 @@ public class IRCServer {
         return channel;
     }
     
+    /**
+     * Gets a channel.
+     * @param name Name of the channel.
+     * @return The requested channel or null if the channel has not been joined.
+     */
     public IRCChannel getChannel(String name) {
         if(channels.containsKey(name)) {
             return channels.get(name);
@@ -130,6 +145,12 @@ public class IRCServer {
         return null;
     }
     
+    /**
+     * Leaves a channel.
+     * @param name Name of the channel to leave.
+     * @throws IOException This exception will be thrown if there is an issue
+     * sending the message.
+     */
     public void partChannel(String name) throws IOException {
         if(!channels.containsKey(name)) {
             return;
@@ -139,6 +160,10 @@ public class IRCServer {
         channels.remove(name);
     }
 
+    /**
+     * Gets the Bot associated with this server.
+     * @return
+     */
     public Bot getBot() {
         return bot;
     }    
