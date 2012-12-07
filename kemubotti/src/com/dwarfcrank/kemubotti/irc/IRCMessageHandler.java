@@ -44,6 +44,7 @@ public abstract class IRCMessageHandler {
      *
      * @param server The server the message originated from.
      * @param message The message contents.
+     * @throws IOException  
      */
     protected abstract void run(IRCServer server, IRCMessage message)
             throws IOException;
@@ -72,6 +73,8 @@ public abstract class IRCMessageHandler {
      * @param message The message to handle (case sensitive).
      * @param server The server this message originates from.
      * @throws UnknownMessageException If there is no handler for this message.
+     * @throws IOException If the message handler sends a message and the server
+     * has a problem sending the message, this exception will be thrown.
      */
     public static void handleMessage(IRCMessage message, IRCServer server)
             throws UnknownMessageException, IOException {
