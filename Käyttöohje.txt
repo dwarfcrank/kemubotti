@@ -1,0 +1,19 @@
+Kemubotin k‰yttˆohje
+
+1. Aja kemubotti.jar-tiedosto.
+2. Oletuksena kemubotti yhdist‰‰ QuakeNetiin ja liittyy kanavalle #kemu-dev. K‰ynnist‰ lempi-IRC-
+   asiakasohjelmasi ja seuraa per‰ss‰.
+   Toistaiseksi ainut tapa muuttaa asetuksia on muokata itse Config.java-tiedostoa ja k‰‰nt‰‰
+   kemubotti uudelleen. Ei heikkohermoisille.
+3. K‰ytˆss‰ olevat komennot ovat addevent ja listevents. Kemubottia k‰skytt‰ess‰ pit‰‰ sen nimi
+   mainita heti ensin, muuten se ei kuule sinua. Esimerkiksi sanomalla:
+
+   kemubotti: addevent 24/12/2012 Joulu
+
+   kemubotti lis‰‰ tietokantaan tapahtuman "Joulu" jonka p‰iv‰m‰‰r‰ on 24/12/2012.
+
+   kemubotti: listevents
+
+   taas listaa kaikki kemubotin tuntemat tapahtumat, j‰rjestettyn‰ p‰iv‰m‰‰r‰n mukaan.
+
+4. Nauti.
