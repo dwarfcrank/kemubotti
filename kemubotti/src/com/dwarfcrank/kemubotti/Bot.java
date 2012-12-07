@@ -50,7 +50,7 @@ public class Bot {
             return;
         }
         
-        CommandHandler.HandleCommand(command, sender, channel, line);
+        CommandHandler.handleCommand(command, sender, channel, line);
     }
 
     /**

@@ -46,7 +46,7 @@ public abstract class CommandHandler {
      * @param channel The channel this command was issued on.
      * @param line The whole message that was sent to IRC.
      */
-    public static void HandleCommand(String command, String sender, IRCChannel channel, String line) {
+    public static void handleCommand(String command, String sender, IRCChannel channel, String line) {
         if(commands.containsKey(command)) {
             commands.get(command).run(sender, channel, line);
         } else {
