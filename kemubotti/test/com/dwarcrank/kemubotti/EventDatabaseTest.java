@@ -42,14 +42,9 @@ public class EventDatabaseTest {
     
     private Date newDate(int day, int month, int year) {
         Calendar c = Calendar.getInstance();
-        
-        c.set(Calendar.DAY_OF_MONTH, day);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.YEAR, year);
-        
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.HOUR, 0);
+
+        c.clear();
+        c.set(year, month - 1, day);
         
         return c.getTime();
     }
@@ -91,6 +86,9 @@ public class EventDatabaseTest {
         
         Date d1 = events.get(0).getDate();
         Date d2 = events.get(1).getDate();
+        
+        String x1 = d1.toString();
+        String x2 = d2.toString();
         
         assertTrue(d1.before(d2));
     }
