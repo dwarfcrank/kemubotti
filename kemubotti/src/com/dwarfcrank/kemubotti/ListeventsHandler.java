@@ -17,8 +17,10 @@ public class ListeventsHandler extends CommandHandler {
     protected void run(String sender, IRCChannel channel, String line) {
         List<Event> events = channel.getServer().getBot().getEventDatabase().getEvents();
         
+        int i = 1;
+        
         for(Event e : events) {
-            channel.say(e.toString());
+            channel.say(i + ": " + e.toString());
         }
     }
     
