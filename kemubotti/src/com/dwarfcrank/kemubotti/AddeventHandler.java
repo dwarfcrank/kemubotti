@@ -5,6 +5,9 @@
 package com.dwarfcrank.kemubotti;
 
 import com.dwarfcrank.kemubotti.irc.IRCChannel;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +24,14 @@ public class AddeventHandler extends CommandHandler {
     @Override
     protected void run(String sender, IRCChannel channel, String line) {
         EventDatabase db = channel.getServer().getBot().getEventDatabase();
-        Event e = Event.parseEvent(line);
+        Event e;
+        
+        try {
+            e = Event.parseEvent(line);
+        } catch (ParseException ex) {
+            channel.say("Invalid date format.");
+            return;
+        }
         
         db.addEvent(e);
         channel.say("Added event " + e.getName());
